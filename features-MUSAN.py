@@ -19,12 +19,14 @@ def extract_features(file_name, start, end):
     
 
 # Headers from the sanitized csv
-my_cols=['Sample']
-metadata = pd.read_csv('../MUSAN/musan/speech/us-gov/ANNOTATIONS.txt', names=my_cols, engine='python')
+my_cols=['Sample', 'sex', 'nationality']
+metadata = pd.read_csv('../MUSAN/musan/speech/librivox/ANNOTATIONS.txt', names=my_cols, engine='python')
+# metadata = pd.read_csv('../MUSAN/musan/speech/us-gov/ANNOTATIONS.txt', names=my_cols, engine='python')
 # metadata = pd.read_csv('../MUSAN/musan/noise/sound-bible/ANNOTATIONS.txt', names=my_cols, engine='python')
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_DIR = os.path.join(BASE_DIR, 'MUSAN', 'musan', 'speech', 'us-gov' )
+DATA_DIR = os.path.join(BASE_DIR, 'MUSAN', 'musan', 'speech', 'librivox' )
+# DATA_DIR = os.path.join(BASE_DIR, 'MUSAN', 'musan', 'speech', 'us-gov' )
 # DATA_DIR = os.path.join(BASE_DIR, 'MUSAN', 'musan', 'noise', 'sound-bible' )
 
 features = []
@@ -34,13 +36,15 @@ for index, row in metadata.iterrows():
     if index == 0:
         continue
  
-    file_name =  os.path.join(DATA_DIR,"speech-us-gov-") + row["Sample"] + '.wav'
+    file_name =  os.path.join(DATA_DIR,row["Sample"]) + '.wav'
+    print(file_name)
+    # file_name =  os.path.join(DATA_DIR,"speech-us-gov-") + row["Sample"] + '.wav'
     # file_name =  os.path.join(DATA_DIR,"noise-sound-bible-") + row["Sample"] + '.wav'
 
     class_label = "speech"
     # class_label = "noise"
-    window = 5
-    for start_time in range(10):
+    window = 1
+    for start_time in range(2):
     # start = np.random.randint(0,500)
     # end = np.random.randint(0,5)
     # start = np.random.rand()
@@ -55,7 +59,7 @@ for index, row in metadata.iterrows():
 featuresdf = pd.DataFrame(features, columns=['feature','class_label'])
 
 # Save features
-featuresdf.to_pickle("features/MUSAN-speech-features-balanced-scaled.pkl")
+featuresdf.to_pickle("features/MUSAN-speech-librivox-features-balanced-scaled-short_window.pkl")
 # featuresdf.to_pickle("features/MUSAN-noise-features.pkl")
 
 print('Finished feature extraction from ', len(featuresdf), ' files')

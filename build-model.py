@@ -31,7 +31,7 @@ print(y[-1], ' <------y-1')
 x_train, x_test, y_train, y_test = train_test_split(X, yy, test_size=0.2, random_state = 42)
 
 num_labels = yy.shape[1]
-filter_size = 3
+filter_size = 2
 
 # Construct model 
 model = Sequential()
@@ -87,7 +87,7 @@ print("Training Accuracy: ", score[1])
 score = model.evaluate(x_test, y_test, verbose=0)
 print("Testing Accuracy: ", score[1])
 
-model.save('./saved_models/laugh-audio-vad-v2.h5')
+model.save('./saved_models/laugh-audio-librivox-svc-v2.h5')
 
 # # Convert model to tfjs
-# # tensorflowjs_converter --input_format keras saved_models/laugh-audio-vad.h5 ./vad-v2
+# # tensorflowjs_converter --input_format keras saved_models/laugh-audio-vad.h5 ./librivox-svc

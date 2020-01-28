@@ -3,11 +3,15 @@ import pandas as pd
 import os
 import keras
 import librosa
+import glob
 from sklearn.preprocessing import LabelEncoder
 from keras.utils import to_categorical
 
-model = keras.models.load_model('./saved_models/laugh-audio.h5')
-featuresdf = pd.read_pickle("./features.pkl")
+model = keras.models.load_model('./saved_models/laugh-audio-librivox-svc-v2.h5')
+# featuresdf = pd.read_pickle("./features.pkl")
+files = glob.glob('features/scaled/*.pkl')
+featuresdf = pd.concat([pd.read_pickle(fp) for fp in files], ignore_index=True)
+
 
 # Convert features and corresponding classification labels into numpy arrays
 X = np.array(featuresdf.feature.tolist())
