@@ -10,7 +10,9 @@ WAVE_OUTPUT_FILENAME = "my-laugh.wav"
  
 audio = pyaudio.PyAudio()
  
-# start Recording
+# This will record something from the microphone.
+# Used to save a single recording and test it against the model to see
+# if it performs well on unseen data of a real-life scenario.
 stream = audio.open(format=FORMAT, channels=CHANNELS,
                 rate=RATE, input=True,
                 frames_per_buffer=CHUNK)

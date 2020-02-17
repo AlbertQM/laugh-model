@@ -11,6 +11,9 @@ DATA_DIR = os.path.join(BASE_DIR, 'SVC', 'data')
 my_cols=['Sample', "original_spk", "gender", "original_time", "type_voc", "start_voc", "end_voc"]
 metadata = pd.read_csv('../SVC/labels_sane.txt', names=my_cols, engine='python')
 
+# Chop the SVC dataset into small files containing only the utterances.
+# This new dataset was used to extract features with a JS framework that
+# didn't allow to specify start/end of when to extract features from a full file
 for index, row in metadata.iterrows():
 
     if index == 0:
