@@ -20,7 +20,7 @@ features = []
 for index, row in annotations.iterrows():
     file_name =  os.path.join(pathToData,str(row["filename"])) + '.sph'
 
-    if re.search("^S\d+$", row["speakerName"]):
+    if re.search(r"^S\d+$", row["speakerName"]):
         continue
 
     # Fragments that are not speech are labeled as follow
