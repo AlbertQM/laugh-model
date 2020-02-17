@@ -3,3 +3,4 @@ models
 ignore
 new-data
 *.wav
+__pycache__
