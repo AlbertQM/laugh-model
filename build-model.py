@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 from keras.callbacks import ModelCheckpoint 
 from datetime import datetime 
+import matplotlib.pyplot as plt
 
 # Concat all pickles - Containing features extracted from different datasets
 files = glob.glob('features/scaled/*.pkl')
@@ -70,7 +71,7 @@ checkpointer = ModelCheckpoint(filepath='saved_models/weights.best.basic_vad.hdf
                                verbose=1, save_best_only=True)
 start = datetime.now()
 
-model.fit(x_train, y_train, batch_size=num_batch_size, epochs=num_epochs, validation_data=(x_test, y_test), callbacks=[checkpointer], verbose=1)
+history = model.fit(x_train, y_train, batch_size=num_batch_size, epochs=num_epochs, validation_data=(x_test, y_test), callbacks=[checkpointer], verbose=1)
 
 duration = datetime.now() - start
 print("Training completed in time: ", duration)
@@ -82,7 +83,26 @@ print("Training Accuracy: ", score[1])
 score = model.evaluate(x_test, y_test, verbose=0)
 print("Testing Accuracy: ", score[1])
 
-model.save('./saved_models/laugh-audio-Noisy_SVC-43_features.h5')
+# model.save('./saved_models/laugh-audio-Noisy_SVC-43_features.h5')
+plotTitle = 'Noisy SVC (43 Features)'
+
+# Plot accuracy
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['val_accuracy'])
+plt.title(plotTitle)
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['train', 'test'], loc='upper left')
+plt.show()
+# Plot loss
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title(plotTitle)
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train', 'test'], loc='upper left')
+plt.show()
+
 
 # Convert model to tfjs
 # tensorflowjs_converter --input_format keras saved_models/laugh-audio-Noisy_SVC-43_features.h5 ./noisy_svc-extra_features
