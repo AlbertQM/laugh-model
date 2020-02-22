@@ -21,7 +21,7 @@ featuresdf = pd.concat([pd.read_pickle(fp) for fp in files], ignore_index=True)
 
 # Convert features and corresponding classification labels into numpy arrays
 X = np.array(featuresdf.feature.tolist())
-y = np.array(featuresdf.class_label.tolist())
+y = np.array(featuresdf.classLabel.tolist())
 
 # Encode the classification labels
 le = LabelEncoder()
