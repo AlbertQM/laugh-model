@@ -3,7 +3,8 @@ from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.models import Sequential
 from keras.optimizers import Adam
 from keras.utils import to_categorical, np_utils
-from sklearn import metrics 
+from sklearn.metrics import roc_curve
+from sklearn.metrics import auc
 from sklearn.model_selection import train_test_split 
 from sklearn.preprocessing import LabelEncoder
 import glob
@@ -101,6 +102,19 @@ plt.title(plotTitle)
 plt.ylabel('loss')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
+plt.show()
+# Plot ROC with AUC
+y_true = y_test.reshape(-1, 1)[:len(y_test)] # Classes, e.g. [[1.], [0.] ...]
+y_pred = model.predict(x_test).reshape(-1, 1)[:len(x_test)] # Prediction values, e.g. [[.952], [.051], ...]
+fpr, tpr, thresholds = roc_curve(y_true=y_true, y_score=y_pred)
+areaUnderCurve = auc(fpr, tpr)
+plt.figure(1)
+plt.plot([0, 1], [0, 1], 'k--')
+plt.plot(fpr, tpr, label='{} (AUC = {:.3f})'.format(plotTitle, areaUnderCurve))
+plt.xlabel('False positive rate')
+plt.ylabel('True positive rate')
+plt.title('ROC curve')
+plt.legend(loc='best')
 plt.show()
 
 
