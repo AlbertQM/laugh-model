@@ -1,3 +1,14 @@
-# Laughter Recognition ML Model
+```
+* * * * * * * * * * * * * * * * * * * * * * * * *
+* Final Year Project (2019/2020)                *
+* BSc(Eng) "Creative Computing"                 *
+* Queen Mary University of London               *
+*                                               *
+* @Authors Alberto Morabito                     *
+* * * * * * * * * * * * * * * * * * * * * * * * *
+```
 
-Helper repo in which I develop a ML Model with TensorFlow. This will then be converted to JavaScript and used in my main project.
+# Laughter Recognition Machine Learning Model
+
+This repo contains all the Python code used to extract features, build and train the model.
+Said model is then implemented in [Lold.js](https://github.com/AlbertQM/laugh-api.js).
